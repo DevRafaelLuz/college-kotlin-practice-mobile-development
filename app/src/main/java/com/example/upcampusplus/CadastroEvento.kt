@@ -24,5 +24,22 @@ class CadastroEvento : AppCompatActivity() {
                 Toast.makeText(this, "Evento pronto para salvar", Toast.LENGTH_SHORT).show()
             }
         }
+
+        btnSalvar.setOnClickListener {
+            val evento = Evento(
+                nome = etNome.text.toString().trim(),
+                data = etData.text.toString().trim(),
+                local = etLocal.text.toString().trim(),
+                descricao = etDescricao.text.toString().trim()
+            )
+            if (evento.nome.isEmpty()) {
+                etNome.error = "Informe o nome"
+                return@setOnClickListener
+            }
+            val banco = BancoHelper(this)
+            banco.inserir(evento)
+            Toast.makeText(this, "Evento salvo!", Toast.LENGTH_SHORT).show()
+            finish()
+        }
     }
 }
