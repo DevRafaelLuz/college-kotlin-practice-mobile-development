@@ -13,6 +13,9 @@
         android:theme="@style/Theme.UPCampusPlus"
         tools:targetApi="31">
         <activity
+            android:name=".CadastroEvento"
+            android:exported="false" />
+        <activity
             android:name=".Agenda"
             android:exported="false" />
         <activity
