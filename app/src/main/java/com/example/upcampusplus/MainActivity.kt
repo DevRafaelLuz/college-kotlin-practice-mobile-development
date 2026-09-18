@@ -1,9 +1,9 @@
 package com.example.upcampusplus
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         val btnComecar = findViewById<Button>(R.id.btnComecar)
         btnComecar.setOnClickListener {
-            Toast.makeText(this, "UP Campus+ iniciado!", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, Agenda::class.java))
         }
     }
 }
