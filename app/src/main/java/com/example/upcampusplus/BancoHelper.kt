@@ -35,4 +35,39 @@ class BancoHelper(context: Context) : SQLiteOpenHelper(context, "campus.db", nul
         }
         return writableDatabase.insert("eventos", null, valores)
     }
+
+    fun listar(): MutableList<Evento> {
+        val lista = mutableListOf<Evento>()
+        val cursor = readableDatabase.rawQuery("SELECT * FROM eventos ORDER BY id DESC", null)
+        while (cursor.moveToNext()) {
+            lista.add(
+                Evento(
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    nome = cursor.getString(cursor.getColumnIndexOrThrow("nome")),
+                    data = cursor.getString(cursor.getColumnIndexOrThrow("data")),
+                    local = cursor.getString(cursor.getColumnIndexOrThrow("local")),
+                    descricao = cursor.getString(cursor.getColumnIndexOrThrow("descricao")),
+                    favorito = cursor.getInt(cursor.getColumnIndexOrThrow("favorito")) == 1
+                )
+            )
+        }
+        cursor.close()
+        return lista
+    }
+
+    fun buscarPorId(id: Int): Evento? {
+        val cursor = readableDatabase.rawQuery("SELECT * FROM eventos WHERE id = ?", arrayOf(id.toString()))
+        val evento = if (cursor.moveToFirst()) {
+            Evento(
+                id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                nome = cursor.getString(cursor.getColumnIndexOrThrow("nome")),
+                data = cursor.getString(cursor.getColumnIndexOrThrow("data")),
+                local = cursor.getString(cursor.getColumnIndexOrThrow("local")),
+                descricao = cursor.getString(cursor.getColumnIndexOrThrow("descricao")),
+                favorito = cursor.getInt(cursor.getColumnIndexOrThrow("favorito")) == 1
+            )
+        } else null
+        cursor.close()
+        return evento
+    }
 }
