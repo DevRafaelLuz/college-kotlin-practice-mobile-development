@@ -70,4 +70,8 @@ class BancoHelper(context: Context) : SQLiteOpenHelper(context, "campus.db", nul
         cursor.close()
         return evento
     }
+
+    fun excluir(id: Int): Int {
+        return writableDatabase.delete("eventos", "id = ?", arrayOf(id.toString()))
+    }
 }

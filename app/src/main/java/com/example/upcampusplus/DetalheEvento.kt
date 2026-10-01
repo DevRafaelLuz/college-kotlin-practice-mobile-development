@@ -2,7 +2,9 @@ package com.example.upcampusplus
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 class DetalheEvento : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +17,11 @@ class DetalheEvento : AppCompatActivity() {
             findViewById<TextView>(R.id.tvDetalheNome).text = evento.nome
             findViewById<TextView>(R.id.tvDetalheInfo).text = "${evento.data} • ${evento.local}"
             findViewById<TextView>(R.id.tvDetalheDescricao).text = evento.descricao
+        }
+        findViewById<Button>(R.id.btnExcluir).setOnClickListener {
+            BancoHelper(this).excluir(id)
+            Toast.makeText(this, "Evento excluído", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 }
